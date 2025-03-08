@@ -9,7 +9,6 @@ namespace URPGrabPass.Runtime
     /// </summary>
     public class GrabColorTexturePass : ScriptableRenderPass
     {
-
         private readonly RTHandle _grabbedTextureHandle;
         private readonly string _grabbedTextureName;
         private readonly int _grabbedTexturePropertyId;
@@ -39,7 +38,8 @@ namespace URPGrabPass.Runtime
         {
             var cmd = CommandBufferPool.Get(nameof(GrabColorTexturePass));
             cmd.Clear();
-            Blit(cmd, _renderer.cameraColorTarget, _grabbedTextureHandle.nameID);
+            //Blit(cmd, _renderer.cameraColorTarget, _grabbedTextureHandle.nameID);
+            Blitter.BlitCameraTexture(cmd, _renderer.cameraColorTargetHandle, _grabbedTextureHandle);
             context.ExecuteCommandBuffer(cmd);
             CommandBufferPool.Release(cmd);
         }
